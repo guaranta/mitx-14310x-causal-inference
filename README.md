@@ -2,29 +2,45 @@
 
 **MITx 14.310x — Data Analysis in Social Science**
 
-Inferência causal reproduzível: OLS, variáveis instrumentais (2SLS) e Regression Discontinuity (RDD).
+Inferência causal reproduzível: OLS, variáveis instrumentais (2SLS) e regression discontinuity design (RDD).
 
-| Módulo | Conteúdo | Comando |
-|--------|----------|---------|
-| `01_ols` | Regressão OLS com dados sintéticos | `Rscript 01_ols/demo_ols.R` |
-| `02_iv` | Intuição IV/2SLS | `Rscript 02_iv/demo_iv.R` |
-| `03_rdd` | RDD local linear | `Rscript 03_rdd/demo_rdd.R` |
-| `scripts/original` | Scripts do curso (requerem datasets externos) | referência |
+---
+
+## Métodos e identificação
+
+| Método | Identificação causal | Demo |
+|--------|---------------------|------|
+| **OLS** | Correlacional — controlando covariáveis | `01_ols/demo_ols.R` |
+| **IV / 2SLS** | Variável instrumento exógena | `02_iv/demo_iv.R` |
+| **RDD** | Discontinuidade no cutoff | `03_rdd/demo_rdd.R` |
+
+### OLS — relação educação × salário (synthetic)
+
+![Scatter com reta OLS](docs/figures/ols_demo.png)
+
+### RDD — salto no tratamento no cutoff
+
+![Discontinuidade em x=0](docs/figures/rdd_demo.png)
+
+O estimador RDD local compara limites `lim_{x↓0} E[Y|X]` vs `lim_{x↑0} E[Y|X]`.
+
+---
+
+## Fórmulas (portfólio §06)
+
+```
+ATE = E[Y(1) − Y(0)]
+DiD = (Ȳ_treat,post − Ȳ_treat,pre) − (Ȳ_ctrl,post − Ȳ_ctrl,pre)
+```
 
 ## Setup
 
 ```bash
-# R >= 4.0 recomendado
+# R demos (dados sintéticos)
 Rscript 01_ols/demo_ols.R
+python docs/generate_figures.py   # figuras Python
 ```
 
-## Origem acadêmica
-
-MicroMasters MITx SDSC — curso 14.310x. Demos executáveis reescritos para portfólio; scripts originais em `scripts/original/` (ex.: `nlsw88.csv`, `indiv_final.csv`).
-
-## Portfólio
-
-- [Portfolio AI Engineer / CTO](https://portfolio-ai-cto-guaranta.netlify.app)
-- Fórmulas **ATE** e **DiD** — seção 06 do portfólio
+## Autor
 
 **Guarantã Almeida** — [github.com/guaranta](https://github.com/guaranta)
